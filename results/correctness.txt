@@ -1,0 +1,21 @@
+Project 08 correctness | 27 November 2026
+
+The main performance study used 72 total invocations, comprising 60
+measured runs and 12 warmups. Every MPI run completed all expected IDs
+and matched the sequential baseline in dimensions and decoded RGB bytes.
+The 54 MPI invocations, including warmups, compared 2,256,076,800 channel
+values. For each workload, all decoded batch hashes are identical.
+
+The local Project 8 Studio reference independently verified eight
+Creative Space sample images (113 x 77) and three prepared workshop
+posters (960 x 640). Both C programs used brightness +18 and the same
+nearest-neighbor resize and box blur. Both verified at zero tolerance.
+See studio_checks.csv for dimensions, zero mismatches, and batch hashes.
+
+The generated four-image demo passed at 2, 4, and 8 total ranks. It
+exercised idle workers. A 4-rank missing-input test returned exit 1,
+saved the two successful IDs, and shut down all workers. The successful
+jobs used the same source file on two manifest lines, and each produced
+its own identical 1 x 1 PNG. Reproduce those checks with:
+
+  bash tools/smoke.sh
